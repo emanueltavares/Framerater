@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 namespace Framerater.Core
 {
@@ -24,31 +26,38 @@ namespace Framerater.Core
             _frameCount = 0f;
             _elapsedTime = 0f;
             NumFrames = 0f;
+
+            StartCoroutine(UpdateFramerate());
         }
 
-        protected virtual void Update()
+        private IEnumerator UpdateFramerate()
         {
-            if (_elapsedTime >= 1f)
+            while (enabled)
             {
-                //float exceedingElapsedTime = (_elapsedTime - _maxSeconds) / _maxSeconds;
-                float frameValue = 1 / _elapsedTime;
-                _frameCount += frameValue;
+                yield return new WaitForEndOfFrame();
 
-                // Update value
-                NumFrames = _frameCount;
+                if (_elapsedTime >= 1f)
+                {
+                    //float exceedingElapsedTime = (_elapsedTime - _maxSeconds) / _maxSeconds;
+                    float frameValue = 1 / _elapsedTime;
+                    _frameCount += frameValue;
 
-                // Update elapsed time
-                _elapsedTime -= 1f;
+                    // Update value
+                    NumFrames = _frameCount;
 
-                // Reset frame count
-                _frameCount = 1f - frameValue;
+                    // Update elapsed time
+                    _elapsedTime -= 1f;
+
+                    // Reset frame count
+                    _frameCount = 1f - frameValue;
+                }
+                else
+                {
+                    _frameCount += 1;
+                }
+
+                _elapsedTime += GetDeltaTime();
             }
-            else
-            {
-                _frameCount += 1;
-            }
-
-            _elapsedTime += GetDeltaTime();
         }
 
         protected abstract float GetDeltaTime();
