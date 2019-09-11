@@ -9,7 +9,9 @@ namespace Framerater.View
         /// <summary>
         /// Text component that will display the framerate
         /// </summary>
+#pragma warning disable CS0649
         [SerializeField] private Text _textComponent;
+#pragma warning restore CS0649
 
         /// <summary>
         /// Framerate component that will calculate the framerate
