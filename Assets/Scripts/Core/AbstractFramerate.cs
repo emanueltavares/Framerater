@@ -21,11 +21,14 @@ namespace Framerater.Core
         /// </summary>
         public float NumFrames { get; private set; }
 
+        public float AverageDeltaTime { get; private set; }
+
         protected virtual void OnEnable()
         {
             _frameCount = 0f;
             _elapsedTime = 0f;
             NumFrames = 0f;
+            AverageDeltaTime = 0f;
 
             StartCoroutine(UpdateFramerate());
         }
@@ -44,6 +47,9 @@ namespace Framerater.Core
 
                     // Update value
                     NumFrames = _frameCount;
+
+                    // Update average delta time
+                    AverageDeltaTime = _elapsedTime / NumFrames;
 
                     // Update elapsed time
                     _elapsedTime -= 1f;

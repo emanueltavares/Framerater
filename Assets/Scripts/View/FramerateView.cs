@@ -26,8 +26,15 @@ namespace Framerater.View
 
         protected virtual void Update()
         {
-            string framerate = Mathf.Round(_framerateComponent.NumFrames).ToString();
-            _textComponent.text = string.Format("{0} FPS", framerate);
+            string framerate = Format(_framerateComponent.NumFrames);
+            string avgDeltaTime = Format(_framerateComponent.AverageDeltaTime * 1000);
+            _textComponent.text = string.Format("{0} FPS ({1}ms)", framerate, avgDeltaTime);
+        }
+
+        private string Format(float f)
+        {
+            double d = System.Convert.ToDouble(f);
+            return d.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 
