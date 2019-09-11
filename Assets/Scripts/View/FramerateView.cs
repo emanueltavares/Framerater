@@ -28,7 +28,9 @@ namespace Framerater.View
         {
             string framerate = Format(_framerateComponent.NumFrames);
             string avgDeltaTime = Format(_framerateComponent.AverageDeltaTime * 1000);
-            _textComponent.text = string.Format("{0} FPS ({1}ms)", framerate, avgDeltaTime);
+            string minDeltaTime = Format(_framerateComponent.MinDeltaTime * 1000);
+            string maxDeltaTime = Format(_framerateComponent.MaxDeltaTime * 1000);
+            _textComponent.text = string.Format("{0} FPS (avg: {1}ms - min: {2}ms - max: {3}ms)", framerate, avgDeltaTime, minDeltaTime, maxDeltaTime);
         }
 
         private string Format(float f)

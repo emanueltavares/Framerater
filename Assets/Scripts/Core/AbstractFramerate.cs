@@ -21,7 +21,20 @@ namespace Framerater.Core
         /// </summary>
         public float NumFrames { get; private set; }
 
+        /// <summary>
+        /// Average delta time of a collection of frames in a single second
+        /// </summary>
         public float AverageDeltaTime { get; private set; }
+
+        /// <summary>
+        /// Min delta time of a collection of frames in a single second
+        /// </summary>
+        public float MinDeltaTime { get; private set; }
+        
+        /// <summary>
+        /// Max delta time of a collection of frames in a single second
+        /// </summary>
+        public float MaxDeltaTime { get; private set; }
 
         protected virtual void OnEnable()
         {
@@ -29,12 +42,16 @@ namespace Framerater.Core
             _elapsedTime = 0f;
             NumFrames = 0f;
             AverageDeltaTime = 0f;
+            MinDeltaTime = 1f;
+            MaxDeltaTime = 0f;
 
             StartCoroutine(UpdateFramerate());
         }
 
         private IEnumerator UpdateFramerate()
         {
+            float maxDeltaTime = MaxDeltaTime;
+            float minDeltaTime = MinDeltaTime;
             while (enabled)
             {
                 yield return new WaitForEndOfFrame();
@@ -50,6 +67,14 @@ namespace Framerater.Core
 
                     // Update average delta time
                     AverageDeltaTime = _elapsedTime / NumFrames;
+                   
+                    // Update Minimum delta time
+                    MinDeltaTime = minDeltaTime;
+                    minDeltaTime = 100f;
+                    
+                    // Update maximum delta time
+                    MaxDeltaTime = maxDeltaTime;
+                    maxDeltaTime = 0f;
 
                     // Update elapsed time
                     _elapsedTime -= 1f;
@@ -62,7 +87,17 @@ namespace Framerater.Core
                     _frameCount += 1;
                 }
 
-                _elapsedTime += GetDeltaTime();
+                // Update Delta Time
+                float deltaTime = GetDeltaTime();
+                if (deltaTime > maxDeltaTime)
+                {
+                    maxDeltaTime = deltaTime;
+                }
+                if (deltaTime < minDeltaTime)
+                {
+                    minDeltaTime = deltaTime;
+                }
+                _elapsedTime += deltaTime;
             }
         }
 
