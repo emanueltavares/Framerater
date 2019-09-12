@@ -1,4 +1,5 @@
 ﻿using Framerater.Core;
+using System.Collections;
 using UnityEngine;
 
 namespace Framerater.StressTest
@@ -18,16 +19,23 @@ namespace Framerater.StressTest
             {
                 _framerater = GetComponent<IFramerate>();
             }
+
+            StartCoroutine(UpdatePitch());
         }
 
-        protected virtual void Update()
+        private IEnumerator UpdatePitch()
         {
-            float pitch = 1f;
-            if (_framerater.NumFrames <= _targetFramerate)
+            while (enabled)
             {
-                pitch = Mathf.InverseLerp(0f, _targetFramerate, _framerater.NumFrames);
+                yield return new WaitForEndOfFrame();
+
+                float pitch = 1f;
+                if (_framerater.NumFrames <= _targetFramerate)
+                {
+                    pitch = Mathf.InverseLerp(0f, _targetFramerate, _framerater.NumFrames);
+                }
+                _audioSource.pitch = pitch;
             }
-            _audioSource.pitch = pitch;
         }
     }
 }
