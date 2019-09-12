@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Framerater.View
 {
-    public class FramerateView : MonoBehaviour
+    public class FramerateTextView : MonoBehaviour
     {
         /// <summary>
         /// Text component that will display the framerate

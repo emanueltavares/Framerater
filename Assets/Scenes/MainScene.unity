@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 887843716}
   - component: {fileID: 887843717}
   m_Layer: 5
-  m_Name: Framerate
+  m_Name: FramerateText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25, y: -25.000061}
+  m_AnchoredPosition: {x: -25, y: -25}
   m_SizeDelta: {x: -50, y: -50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &887843714
@@ -413,10 +413,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 6
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 2
     m_AlignByGeometry: 0
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 887843712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cea9b48075624f44d94f5c9b81165460, type: 3}
+  m_Script: {fileID: 11500000, guid: d72d8a534dc4c244ebae619ef3264832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _textComponent: {fileID: 887843714}
@@ -625,7 +625,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1425924168}
   - component: {fileID: 1425924166}
-  - component: {fileID: 1425924167}
   m_Layer: 0
   m_Name: UICamera
   m_TagString: Untagged
@@ -676,14 +675,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1425924167
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425924165}
-  m_Enabled: 1
 --- !u!4 &1425924168
 Transform:
   m_ObjectHideFlags: 0
