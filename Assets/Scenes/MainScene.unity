@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 887843714}
   - component: {fileID: 887843716}
   - component: {fileID: 887843717}
+  - component: {fileID: 887843718}
   m_Layer: 5
   m_Name: FramerateText
   m_TagString: Untagged
@@ -458,6 +459,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textComponent: {fileID: 887843714}
+--- !u!114 &887843718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887843712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c4c4c58000e8540809904e1a6f0927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 1902747868}
+  _targetFramerate: 60
 --- !u!1 &1118307339
 GameObject:
   m_ObjectHideFlags: 0
