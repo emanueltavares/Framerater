@@ -22,6 +22,12 @@ namespace Framerater.View
         private List<float> _frameCaches = new List<float>();
         private int _maxFrameCaches = 60;
 
+        protected virtual void OnValidate()
+        {
+            _borderOffset.right = Mathf.Max(_borderOffset.left, _borderOffset.right);
+            _borderOffset.bottom = Mathf.Min(_borderOffset.top, _borderOffset.bottom);
+        }
+
         protected virtual void OnEnable()
         {
             if (Application.isPlaying)
@@ -43,6 +49,8 @@ namespace Framerater.View
             //float right = (Screen.height - _borderOffset.right) / (float)Screen.height;
             //float top = (Screen.width - _borderOffset.top) / (float)Screen.width;
             //float bottom = _borderOffset.bottom / (float)Screen.width;
+
+            
 
             using (new GLMatrixScope())
             {
@@ -70,12 +78,17 @@ namespace Framerater.View
                     {
                         GL.Color(_graphColor);
 
-                        for (int i = 0; i < _frameCaches.Count; i++)
+                        float height = _borderOffset.top - _borderOffset.bottom;
+                        float width = _borderOffset.right - _borderOffset.left;
+                        if (height > _linePadding * 2f && width > _linePadding)
                         {
-                            Vector3 dot = Vector3.zero;
-                            dot.x = Mathf.Lerp(_borderOffset.left + _linePadding, _borderOffset.right - _linePadding, i / (_frameCaches.Count - 1f));
-                            dot.y = Mathf.Lerp(_borderOffset.bottom + _linePadding, _borderOffset.top - _linePadding, Mathf.Min(_frameCaches[i] / _maxFramerate, 1f));
-                            GL.Vertex(dot);
+                            for (int i = 0; i < _frameCaches.Count; i++)
+                            {
+                                Vector3 dot = Vector3.zero;
+                                dot.x = Mathf.Lerp(_borderOffset.left + _linePadding, _borderOffset.right - _linePadding, i / (_frameCaches.Count - 1f));
+                                dot.y = Mathf.Lerp(_borderOffset.bottom + _linePadding, _borderOffset.top - _linePadding, Mathf.Min(_frameCaches[i] / _maxFramerate, 1f));
+                                GL.Vertex(dot);
+                            }
                         }
                     }
                 }

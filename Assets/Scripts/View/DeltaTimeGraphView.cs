@@ -26,6 +26,12 @@ namespace Framerater.View
         private List<float> _maxDeltaTimeCaches = new List<float>();
         private int _numDeltaTimeCaches = 60;
 
+        protected virtual void OnValidate()
+        {
+            _borderOffset.right = Mathf.Max(_borderOffset.left, _borderOffset.right);
+            _borderOffset.bottom = Mathf.Min(_borderOffset.top, _borderOffset.bottom);
+        }
+
         protected virtual void OnEnable()
         {
             if (Application.isPlaying)
@@ -69,12 +75,17 @@ namespace Framerater.View
                     _material.SetPass(0);
                     GL.LoadOrtho();
 
-                    // Draw min delta time
-                    DrawLine(_minDeltaTimeCaches, _minDeltaTimeGraphColor, _borderOffset.top, _borderOffset.left, _borderOffset.bottom, _borderOffset.right);
-                    // Draw avg delta time
-                    DrawLine(_avgDeltaTimeCaches, _avgDeltaTimeGraphColor, _borderOffset.top, _borderOffset.left, _borderOffset.bottom, _borderOffset.right);
-                    // Draw max delta time
-                    DrawLine(_maxDeltaTimeCaches, _maxDeltaTimeGraphColor, _borderOffset.top, _borderOffset.left, _borderOffset.bottom, _borderOffset.right);
+                    float height = _borderOffset.top - _borderOffset.bottom;
+                    float width = _borderOffset.right - _borderOffset.left;
+                    if (height > _linePadding * 2f && width > _linePadding)
+                    {
+                        // Draw min delta time
+                        DrawLine(_minDeltaTimeCaches, _minDeltaTimeGraphColor, _borderOffset.top, _borderOffset.left, _borderOffset.bottom, _borderOffset.right);
+                        // Draw avg delta time
+                        DrawLine(_avgDeltaTimeCaches, _avgDeltaTimeGraphColor, _borderOffset.top, _borderOffset.left, _borderOffset.bottom, _borderOffset.right);
+                        // Draw max delta time
+                        DrawLine(_maxDeltaTimeCaches, _maxDeltaTimeGraphColor, _borderOffset.top, _borderOffset.left, _borderOffset.bottom, _borderOffset.right);
+                    }                    
                 }
             }
         }

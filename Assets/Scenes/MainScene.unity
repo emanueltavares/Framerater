@@ -933,8 +933,8 @@ MonoBehaviour:
   _borderOffset:
     left: 0.015
     right: 0.985
-    top: 0.985
-    bottom: 0.815
+    top: 0.975
+    bottom: 0.775
   _linePadding: 0.01
   _maxFramerate: 60
   _framerate: {fileID: 387752484}

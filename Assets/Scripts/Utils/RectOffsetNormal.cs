@@ -3,7 +3,7 @@
 namespace Framerater.Utils
 {
     [System.Serializable]
-    public class RectOffsetNormal
+    public struct RectOffsetNormal
     {
         [Range(0f, 1f)] public float left;
         [Range(0f, 1f)] public float right;
