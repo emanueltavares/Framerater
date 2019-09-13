@@ -6,11 +6,13 @@ using UnityEngine;
 
 namespace Framerater.View
 {
+    [ExecuteAlways]
     public class FramerateGraphView : MonoBehaviour
     {
 #pragma warning disable CS0649        
         [SerializeField] private Material _material;
-        [SerializeField] private RectOffset _rectOffset;
+        [SerializeField] private RectOffset _borderOffset;
+        [Range(0, 0.025f)][SerializeField] private float _linePadding;
         private IFramerate _framerate;
 #pragma warning restore CS0649
 
@@ -19,36 +21,63 @@ namespace Framerater.View
 
         protected virtual void OnEnable()
         {
-            _frameCaches.Clear();
-            for (int i = 0; i < _maxFrameCaches; i++)
+            if (Application.isPlaying)
             {
-                _frameCaches.Add(0f);
-            }
+                _frameCaches.Clear();
+                for (int i = 0; i < _maxFrameCaches; i++)
+                {
+                    _frameCaches.Add(0f);
+                }
 
-            if (_framerate == null)
-            {
-                _framerate = GetComponent<IFramerate>();
-            }
+                if (_framerate == null)
+                {
+                    _framerate = GetComponent<IFramerate>();
+                }
 
-            StartCoroutine(UpdateFrameCaches());
+                StartCoroutine(UpdateFrameCaches());
+            }            
         }
 
         protected virtual void OnPostRender()
-        {
+        {            
+            // Draw border
+            float left = _borderOffset.left / (float)Screen.height;
+            float right = (Screen.height - _borderOffset.right) / (float)Screen.height;
+            float top = (Screen.width - _borderOffset.top) / (float)Screen.width;
+            float bottom = _borderOffset.bottom / (float)Screen.width;
+
             using (new GLMatrixScope())
             {
                 _material.SetPass(0);
                 GL.LoadOrtho();
                 using (new GLScope(GL.LINE_STRIP))
                 {
-                    GL.Color(Color.red);
+                    GL.Vertex3(left, top, 0f);
+                    GL.Vertex3(right, top, 0f);
+                    GL.Vertex3(right, bottom, 0f);
+                    GL.Vertex3(left, bottom, 0f);
+                    GL.Vertex3(left, top, 0f);
+                }
+            }
 
-                    for (int i = 0; i < _frameCaches.Count; i++)
+            if (Application.isPlaying)
+            {
+                // Draw fps
+                using (new GLMatrixScope())
+                {
+                    _material.SetPass(0);
+                    GL.LoadOrtho();
+                    using (new GLScope(GL.LINE_STRIP))
                     {
-                        Vector3 dot = Vector3.zero;
-                        dot.x = (float) i / _frameCaches.Count;
-                        dot.y = Mathf.Min(_frameCaches[i] / 60f, 1f);
-                        GL.Vertex(dot);
+                        GL.Color(Color.red);
+
+                        for (int i = 0; i < _frameCaches.Count; i++)
+                        {
+                            Vector3 dot = Vector3.zero;
+                            dot.x = Mathf.Lerp(left + _linePadding, right - _linePadding, i / (_frameCaches.Count - 1f));
+                            dot.y = Mathf.Lerp(bottom + _linePadding, top - _linePadding, Mathf.Min(_frameCaches[i] / 60f, 1f));
+                            GL.Vertex(dot);
+                        }
                     }
                 }
             }

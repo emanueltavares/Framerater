@@ -705,12 +705,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f984cb3ffc8174a900fdecf586fb80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _material: {fileID: 2100000, guid: 12152035440179f438d643f5bead24d3, type: 2}
-  _rectOffset:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+  _material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  _borderOffset:
+    m_Left: 15
+    m_Right: 15
+    m_Top: 30
+    m_Bottom: 750
+  _linePadding: 0.01
 --- !u!4 &1425924168
 Transform:
   m_ObjectHideFlags: 0
