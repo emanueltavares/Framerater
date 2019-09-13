@@ -9,17 +9,11 @@ namespace Framerater.StressTest
 #pragma warning disable CS0649
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private float _targetFramerate = 60f;
-#pragma warning restore CS0649
-
-        private IFramerate _framerater;
+        [SerializeField] private AbstractFramerate _framerater;
+#pragma warning restore CS0649        
 
         protected virtual void OnEnable()
         {
-            if (_framerater == null)
-            {
-                _framerater = GetComponent<IFramerate>();
-            }
-
             StartCoroutine(UpdatePitch());
         }
 

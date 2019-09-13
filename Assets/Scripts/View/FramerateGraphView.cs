@@ -12,8 +12,9 @@ namespace Framerater.View
 #pragma warning disable CS0649        
         [SerializeField] private Material _material;
         [SerializeField] private RectOffset _borderOffset;
-        [Range(0, 0.025f)][SerializeField] private float _linePadding;
-        private IFramerate _framerate;
+        [Range(0, 0.025f)] [SerializeField] private float _linePadding;
+        [Range(30, 240)] [SerializeField] private int _maxFramerate = 60;
+        [SerializeField] private AbstractFramerate _framerate;
 #pragma warning restore CS0649
 
         private List<float> _frameCaches = new List<float>();
@@ -29,17 +30,12 @@ namespace Framerater.View
                     _frameCaches.Add(0f);
                 }
 
-                if (_framerate == null)
-                {
-                    _framerate = GetComponent<IFramerate>();
-                }
-
                 StartCoroutine(UpdateFrameCaches());
-            }            
+            }
         }
 
         protected virtual void OnPostRender()
-        {            
+        {
             // Draw border
             float left = _borderOffset.left / (float)Screen.height;
             float right = (Screen.height - _borderOffset.right) / (float)Screen.height;
@@ -75,7 +71,7 @@ namespace Framerater.View
                         {
                             Vector3 dot = Vector3.zero;
                             dot.x = Mathf.Lerp(left + _linePadding, right - _linePadding, i / (_frameCaches.Count - 1f));
-                            dot.y = Mathf.Lerp(bottom + _linePadding, top - _linePadding, Mathf.Min(_frameCaches[i] / 60f, 1f));
+                            dot.y = Mathf.Lerp(bottom + _linePadding, top - _linePadding, Mathf.Min(_frameCaches[i] / _maxFramerate, 1f));
                             GL.Vertex(dot);
                         }
                     }
