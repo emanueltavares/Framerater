@@ -216,7 +216,7 @@ MonoBehaviour:
     m_Left: 100
     m_Right: 100
     m_Top: 10
-    m_Bottom: 25
+    m_Bottom: 10
   m_ChildAlignment: 0
   m_Spacing: 100
   m_ChildForceExpandWidth: 1
@@ -1040,7 +1040,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 30
     m_MaxSize: 60
     m_Alignment: 4
