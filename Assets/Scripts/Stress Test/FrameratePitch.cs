@@ -8,8 +8,9 @@ namespace Framerater.StressTest
     {
 #pragma warning disable CS0649
         [SerializeField] private AudioSource _audioSource;
-        [SerializeField] private float _targetFramerate = 60f;
+        [Range(30f, 240f)][SerializeField] private float _targetFramerate = 60f;
         [SerializeField] private AbstractFramerate _framerater;
+        [Range(-2f, 2f)][SerializeField] private float _defaultPitch = 1f;
 #pragma warning restore CS0649        
 
         protected virtual void OnEnable()
@@ -19,17 +20,23 @@ namespace Framerater.StressTest
 
         private IEnumerator UpdatePitch()
         {
+            _audioSource.pitch = _defaultPitch;
             while (enabled)
             {
                 yield return new WaitForEndOfFrame();
 
-                float pitch = 1f;
+                float pitch = _defaultPitch;
                 if (_framerater.NumFrames <= _targetFramerate)
                 {
                     pitch = Mathf.InverseLerp(0f, _targetFramerate, _framerater.NumFrames);
                 }
                 _audioSource.pitch = pitch;
             }
+        }
+
+        protected virtual void OnDisable()
+        {
+            _audioSource.pitch = _defaultPitch;
         }
     }
 }

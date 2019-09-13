@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee51940446424cf46a3ba8fee279f750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTimeInterval: 0.01
+  _spawnTimeInterval: 0.1
   _spawnDistance: 50
   _prefabs:
   - {fileID: 2963926440543838380, guid: 0b5f71495ca6ef546a92433068fb22c2, type: 3}

@@ -6,7 +6,7 @@ namespace Framerater.StressTest
 {
     public class NucleonSpawner : MonoBehaviour
     {
-        [SerializeField] private float _spawnTimeInterval = 1f;
+        [Range(0.001f, 0.1f)][SerializeField] private float _spawnTimeInterval = 1f;
         [SerializeField] private float _spawnDistance = 1f;
         [SerializeField] private Neutron[] _prefabs = new Neutron[0];
         [SerializeField] private float _minAttractionForce = 10f;
