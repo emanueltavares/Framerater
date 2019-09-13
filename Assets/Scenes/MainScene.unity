@@ -314,7 +314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &778536341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,10 +722,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   _borderOffset:
-    m_Left: 15
-    m_Right: 15
-    m_Top: 30
-    m_Bottom: 750
+    left: 0.015
+    right: 0.985
+    top: 0.85
+    bottom: 0.985
   _linePadding: 0.01
   _maxFramerate: 60
   _framerate: {fileID: 387752484}
@@ -759,10 +759,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   _borderOffset:
-    m_Left: 15
-    m_Right: 15
-    m_Top: 750
-    m_Bottom: 30
+    left: 0.015
+    right: 0.985
+    top: 0.15
+    bottom: 0.015
   _linePadding: 0.01
   _maxDeltaTime: 0.035
   _framerate: {fileID: 387752484}

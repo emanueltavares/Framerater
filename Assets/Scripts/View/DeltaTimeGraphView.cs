@@ -11,7 +11,7 @@ namespace Framerater.View
     {
 #pragma warning disable CS0649        
         [SerializeField] private Material _material;
-        [SerializeField] private RectOffset _borderOffset;
+        [SerializeField] private RectOffsetNormal _borderOffset;
         [Range(0, 0.025f)] [SerializeField] private float _linePadding;
         [Range(0.025f, 0.075f)][SerializeField] private float _maxDeltaTime = 0.01f;
         [SerializeField] private AbstractFramerate _framerate;
@@ -47,11 +47,6 @@ namespace Framerater.View
         protected virtual void OnPostRender()
         {
             // Draw border
-            float left = _borderOffset.left / (float)Screen.height;
-            float right = (Screen.height - _borderOffset.right) / (float)Screen.height;
-            float top = (Screen.width - _borderOffset.top) / (float)Screen.width;
-            float bottom = _borderOffset.bottom / (float)Screen.width;
-
             using (new GLMatrixScope())
             {
                 _material.SetPass(0);
@@ -59,11 +54,11 @@ namespace Framerater.View
                 using (new GLScope(GL.LINE_STRIP))
                 {
                     GL.Color(_borderColor);
-                    GL.Vertex3(left, top, 0f);
-                    GL.Vertex3(right, top, 0f);
-                    GL.Vertex3(right, bottom, 0f);
-                    GL.Vertex3(left, bottom, 0f);
-                    GL.Vertex3(left, top, 0f);
+                    GL.Vertex3(_borderOffset.left, _borderOffset.top, 0f);
+                    GL.Vertex3(_borderOffset.right, _borderOffset.top, 0f);
+                    GL.Vertex3(_borderOffset.right, _borderOffset.bottom, 0f);
+                    GL.Vertex3(_borderOffset.left, _borderOffset.bottom, 0f);
+                    GL.Vertex3(_borderOffset.left, _borderOffset.top, 0f);
                 }
             }
 
@@ -75,11 +70,11 @@ namespace Framerater.View
                     GL.LoadOrtho();
 
                     // Draw min delta time
-                    DrawLine(_minDeltaTimeCaches, _minDeltaTimeGraphColor, top, left, bottom, right);
+                    DrawLine(_minDeltaTimeCaches, _minDeltaTimeGraphColor, _borderOffset.top, _borderOffset.left, _borderOffset.bottom, _borderOffset.right);
                     // Draw avg delta time
-                    DrawLine(_avgDeltaTimeCaches, _avgDeltaTimeGraphColor, top, left, bottom, right);
+                    DrawLine(_avgDeltaTimeCaches, _avgDeltaTimeGraphColor, _borderOffset.top, _borderOffset.left, _borderOffset.bottom, _borderOffset.right);
                     // Draw max delta time
-                    DrawLine(_maxDeltaTimeCaches, _maxDeltaTimeGraphColor, top, left, bottom, right);
+                    DrawLine(_maxDeltaTimeCaches, _maxDeltaTimeGraphColor, _borderOffset.top, _borderOffset.left, _borderOffset.bottom, _borderOffset.right);
                 }
             }
         }

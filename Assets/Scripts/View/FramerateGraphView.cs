@@ -8,10 +8,10 @@ namespace Framerater.View
 {
     [ExecuteAlways]
     public class FramerateGraphView : MonoBehaviour
-    {
+    {        
 #pragma warning disable CS0649        
         [SerializeField] private Material _material;
-        [SerializeField] private RectOffset _borderOffset;
+        [SerializeField] private RectOffsetNormal _borderOffset;
         [Range(0, 0.025f)] [SerializeField] private float _linePadding;
         [Range(30, 240)] [SerializeField] private int _maxFramerate = 60;
         [SerializeField] private AbstractFramerate _framerate;
@@ -39,10 +39,10 @@ namespace Framerater.View
         protected virtual void OnPostRender()
         {
             // Draw border
-            float left = _borderOffset.left / (float)Screen.height;
-            float right = (Screen.height - _borderOffset.right) / (float)Screen.height;
-            float top = (Screen.width - _borderOffset.top) / (float)Screen.width;
-            float bottom = _borderOffset.bottom / (float)Screen.width;
+            //float left = _borderOffset.left / (float)Screen.height;
+            //float right = (Screen.height - _borderOffset.right) / (float)Screen.height;
+            //float top = (Screen.width - _borderOffset.top) / (float)Screen.width;
+            //float bottom = _borderOffset.bottom / (float)Screen.width;
 
             using (new GLMatrixScope())
             {
@@ -51,11 +51,11 @@ namespace Framerater.View
                 using (new GLScope(GL.LINE_STRIP))
                 {
                     GL.Color(_borderColor);
-                    GL.Vertex3(left, top, 0f);
-                    GL.Vertex3(right, top, 0f);
-                    GL.Vertex3(right, bottom, 0f);
-                    GL.Vertex3(left, bottom, 0f);
-                    GL.Vertex3(left, top, 0f);
+                    GL.Vertex3(_borderOffset.left, _borderOffset.top, 0f);
+                    GL.Vertex3(_borderOffset.right, _borderOffset.top, 0f);
+                    GL.Vertex3(_borderOffset.right, _borderOffset.bottom, 0f);
+                    GL.Vertex3(_borderOffset.left, _borderOffset.bottom, 0f);
+                    GL.Vertex3(_borderOffset.left, _borderOffset.top, 0f);
                 }
             }
 
@@ -73,8 +73,8 @@ namespace Framerater.View
                         for (int i = 0; i < _frameCaches.Count; i++)
                         {
                             Vector3 dot = Vector3.zero;
-                            dot.x = Mathf.Lerp(left + _linePadding, right - _linePadding, i / (_frameCaches.Count - 1f));
-                            dot.y = Mathf.Lerp(bottom + _linePadding, top - _linePadding, Mathf.Min(_frameCaches[i] / _maxFramerate, 1f));
+                            dot.x = Mathf.Lerp(_borderOffset.left + _linePadding, _borderOffset.right - _linePadding, i / (_frameCaches.Count - 1f));
+                            dot.y = Mathf.Lerp(_borderOffset.bottom - _linePadding, _borderOffset.top + _linePadding, Mathf.Min(_frameCaches[i] / _maxFramerate, 1f));
                             GL.Vertex(dot);
                         }
                     }
