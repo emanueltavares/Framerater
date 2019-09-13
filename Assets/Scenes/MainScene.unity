@@ -314,7 +314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &778536341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,10 +428,10 @@ RectTransform:
   m_Father: {fileID: 778536344}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -25, y: 0}
-  m_SizeDelta: {x: -50, y: 200}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0.4}
+  m_AnchoredPosition: {x: -985, y: 0}
+  m_SizeDelta: {x: 1870, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &887843714
 MonoBehaviour:
@@ -455,13 +455,13 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
+    m_MinSize: 0
     m_MaxSize: 60
-    m_Alignment: 2
-    m_AlignByGeometry: 0
+    m_Alignment: 5
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -724,8 +724,8 @@ MonoBehaviour:
   _borderOffset:
     left: 0.015
     right: 0.985
-    top: 0.85
-    bottom: 0.985
+    top: 0.985
+    bottom: 0.815
   _linePadding: 0.01
   _maxFramerate: 60
   _framerate: {fileID: 387752484}

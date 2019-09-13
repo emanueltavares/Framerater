@@ -74,7 +74,7 @@ namespace Framerater.View
                         {
                             Vector3 dot = Vector3.zero;
                             dot.x = Mathf.Lerp(_borderOffset.left + _linePadding, _borderOffset.right - _linePadding, i / (_frameCaches.Count - 1f));
-                            dot.y = Mathf.Lerp(_borderOffset.bottom - _linePadding, _borderOffset.top + _linePadding, Mathf.Min(_frameCaches[i] / _maxFramerate, 1f));
+                            dot.y = Mathf.Lerp(_borderOffset.bottom + _linePadding, _borderOffset.top - _linePadding, Mathf.Min(_frameCaches[i] / _maxFramerate, 1f));
                             GL.Vertex(dot);
                         }
                     }
