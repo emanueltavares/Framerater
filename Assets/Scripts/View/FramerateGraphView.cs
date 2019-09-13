@@ -15,6 +15,8 @@ namespace Framerater.View
         [Range(0, 0.025f)] [SerializeField] private float _linePadding;
         [Range(30, 240)] [SerializeField] private int _maxFramerate = 60;
         [SerializeField] private AbstractFramerate _framerate;
+        [SerializeField] private Color _borderColor = Color.white;
+        [SerializeField] private Color _graphColor = Color.red;
 #pragma warning restore CS0649
 
         private List<float> _frameCaches = new List<float>();
@@ -45,9 +47,10 @@ namespace Framerater.View
             using (new GLMatrixScope())
             {
                 _material.SetPass(0);
-                GL.LoadOrtho();
+                GL.LoadOrtho();                
                 using (new GLScope(GL.LINE_STRIP))
                 {
+                    GL.Color(_borderColor);
                     GL.Vertex3(left, top, 0f);
                     GL.Vertex3(right, top, 0f);
                     GL.Vertex3(right, bottom, 0f);
@@ -65,7 +68,7 @@ namespace Framerater.View
                     GL.LoadOrtho();
                     using (new GLScope(GL.LINE_STRIP))
                     {
-                        GL.Color(Color.red);
+                        GL.Color(_graphColor);
 
                         for (int i = 0; i < _frameCaches.Count; i++)
                         {
@@ -81,9 +84,16 @@ namespace Framerater.View
 
         private IEnumerator UpdateFrameCaches()
         {
+            float elapsedTime = 0f;
             while (enabled)
             {
-                yield return new WaitForEndOfFrame();
+                while (elapsedTime <= 1f)
+                {                    
+                    yield return new WaitForEndOfFrame();
+                    elapsedTime += Time.unscaledDeltaTime;
+                }
+
+                elapsedTime -= 1f;
 
                 _frameCaches.RemoveAt(0);
                 _frameCaches.Add(_framerate.NumFrames);

@@ -726,7 +726,10 @@ MonoBehaviour:
     m_Top: 30
     m_Bottom: 750
   _linePadding: 0.01
+  _maxFramerate: 60
   _framerate: {fileID: 387752484}
+  _borderColor: {r: 1, g: 1, b: 1, a: 1}
+  _graphColor: {r: 1, g: 0, b: 0.3494749, a: 1}
 --- !u!4 &1425924168
 Transform:
   m_ObjectHideFlags: 0
